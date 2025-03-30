@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Device Scanner</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #121212; color: white; }
+        h1 { color: #4CAF50; }
+        .data-box { font-size: 24px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Bluetooth & Wi-Fi Device Scanner</h1>
+    <div class="data-box">
+        <p>WiFi Devices: <span id="wifiCount">0</span></p>
+        <p>Bluetooth Devices: <span id="btCount">0</span></p>
+    </div>
+
+    <script>
+        async function updateCounts() {
+            const response = await fetch('/data');
+            const data = await response.json();
+            document.getElementById('wifiCount').innerText = data.wifi;
+            document.getElementById('btCount').innerText = data.bluetooth;
+        }
+        setInterval(updateCounts, 5000); // Refresh every 5 seconds
+        updateCounts();
+    </script>
+</body>
+</html>
